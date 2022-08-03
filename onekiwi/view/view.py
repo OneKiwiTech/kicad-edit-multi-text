@@ -1,10 +1,12 @@
 import wx
 from .dialog import *
 from ..kicad.board import get_current_unit
+from ..version import version
 
 class FootprintTextView(FootprintTextDialog):
     def __init__(self):
         FootprintTextDialog.__init__(self, None)
+        self.SetTitle('Edit Footprint Text v%s' % version)
         self.AddItemAttributes()
         self.AddItemJustification()
         self.AddItemLayer()
