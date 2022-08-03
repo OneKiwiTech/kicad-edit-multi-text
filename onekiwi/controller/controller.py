@@ -12,7 +12,13 @@ class Controller:
         self.logger = self.init_logger(None)
         self.logger = self.init_logger(self.view.textLog)
         self.model = Model(self.logger)
+
+        # Connect Events
         self.view.buttonUpdate.Bind(wx.EVT_BUTTON, self.OnButtonPressed)
+        self.view.choiceAttributes.Bind( wx.EVT_CHOICE, self.OnChoiceAttributes)
+        self.view.choiceJustification.Bind( wx.EVT_CHOICE, self.OnChoiceJustification)
+        self.view.choiceLayer.Bind( wx.EVT_CHOICE, self.OnChoiceLayer)
+        self.view.choiceOrientation.Bind( wx.EVT_CHOICE, self.OnChoiceOrientation)
 
     def Show(self):
         self.view.Show()
@@ -21,10 +27,27 @@ class Controller:
         self.view.Destroy()
 
     def OnButtonPressed(self, event):
-        #self.logger.error("Error Will Robinson!")
-        #self.logger.info("Informational message")
         self.model.get_footprint_drawings()
 
+    def OnChoiceAttributes(self, event):
+        index = event.GetEventObject().GetSelection()
+        value = event.GetEventObject().GetString(index)
+        self.logger.info('Selected: %s' %value)
+
+    def OnChoiceJustification(self, event):
+        index = event.GetEventObject().GetSelection()
+        value = event.GetEventObject().GetString(index)
+        self.logger.info('Selected: %s' %value)
+    
+    def OnChoiceLayer(self, event):
+        index = event.GetEventObject().GetSelection()
+        value = event.GetEventObject().GetString(index)
+        self.logger.info('Selected: %s' %value)
+    
+    def OnChoiceOrientation(self, event):
+        index = event.GetEventObject().GetSelection()
+        value = event.GetEventObject().GetString(index)
+        self.logger.info('Selected: %s' %value)
 
     def init_logger(self, texlog):
         root = logging.getLogger()
