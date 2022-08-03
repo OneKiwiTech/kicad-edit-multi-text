@@ -1,9 +1,9 @@
 {
     "$schema": "https://go.kicad.org/pcm/schemas/v1",
-    "name": "Length Matching",
-    "description": "Track Length Calculator",
-    "description_full": "Track Length Calculator",
-    "identifier": "vn.onekiwi.kicad-length-matching",
+    "name": "Edit Footprint Value",
+    "description": "Edit reference value on layer Silkscreen and Fabrication",
+    "description_full": "Edit reference value on layer Silkscreen and Fabrication",
+    "identifier": "vn.onekiwi.edit-footprint-value",
     "type": "plugin",
     "author": {
         "name": "OneKiwi",
@@ -13,7 +13,7 @@
     },
     "license": "MIT",
     "resources": {
-        "homepage": "https://github.com/OneKiwiTech/kicad-length-matching"
+        "homepage": "https://github.com/OneKiwiTech/kicad-edit-footprint-value"
     },
     "versions": [
         {
@@ -22,7 +22,7 @@
             "kicad_version": "6.0",
             "download_sha256": "SHA256",
             "download_size": DOWNLOAD_SIZE,
-            "download_url": "https://github.com/OneKiwiTech/kicad-length-matching/releases/download/VERSION/kicad-component-placement-VERSION.zip",
+            "download_url": "https://github.com/OneKiwiTech/kicad-edit-footprint-value/releases/download/VERSION/edit-footprint-value-VERSION.zip",
             "install_size": INSTALL_SIZE,
             "platforms": [
                 "linux",

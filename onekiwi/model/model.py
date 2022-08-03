@@ -1,5 +1,4 @@
 import pcbnew
-import math
 from ..kicad.board import get_current_unit
 
 class Status:
@@ -150,7 +149,7 @@ class Model:
                 height = int(25400*heightf)
             if self.unit == 'in':
                 height = int(25400000*heightf)
-            text.SetTextThickness(height)
+            text.SetTextHeight(height)
 
         if self.status.checkThickness == True:
             thicknessf = float(self.status.thickness)

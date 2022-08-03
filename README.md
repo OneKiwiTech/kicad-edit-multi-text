@@ -1,6 +1,7 @@
-# Length Matching Plugin
+# Edit Footprint Text
 ![screenshot](icon/icon_256x256.png)  
-Track length matching with KiCAD
+Edit reference value on layer Silkscreen and Fabrication
+
 ## GUI
 ![screenshot](doc/edit_footprint_text.png)
 
@@ -14,7 +15,7 @@ From there you can install the plugin via the GUI.
 
 
 ## Demo Video
-[![Watch the video](https://img.youtube.com/vi/tDM1MDhxVoc/sddefault.jpg)](https://youtu.be/tDM1MDhxVoc)
+[![Watch the video](https://img.youtube.com/vi/Ye__tgD1nAQ/sddefault.jpg)](https://youtu.be/Ye__tgD1nAQ)
 
 ## Licence and credits
 Plugin code is licensed under MIT license, see LICENSE for more info.  

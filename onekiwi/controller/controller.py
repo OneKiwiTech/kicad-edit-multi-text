@@ -1,4 +1,3 @@
-from asyncio.log import logger
 from ..model.model import Model, Status
 from ..view.view import FootprintTextView
 from .logtext import LogText
