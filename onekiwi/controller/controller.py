@@ -5,13 +5,14 @@ import sys
 import logging
 import logging.config
 import wx
+import pcbnew
 
 class Controller:
     def __init__(self):
         self.view = FootprintTextView()
         self.logger = self.init_logger(None)
         self.logger = self.init_logger(self.view.textLog)
-        self.model = Model(self.logger)
+        self.model = Model(pcbnew.GetBoard(), self.logger)
 
         # Connect Events
         self.view.buttonUpdate.Bind(wx.EVT_BUTTON, self.OnButtonPressed)
