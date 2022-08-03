@@ -1,6 +1,30 @@
 import pcbnew
 from ..kicad.board import get_current_unit
 
+class Status:
+    def __init__(
+    self, attribute, layer, checkLayer, width, checkWidth, 
+    height, checkHeight, thickness, checkThickness, 
+    justification, checkJustification, orientation, checkOrientation,
+    visible, italic, mirrored
+    ):
+        self.attribute = attribute
+        self.layer = layer
+        self.checkLayer = checkLayer
+        self.width = width
+        self.checkWidth = checkWidth
+        self.height = height
+        self.checkHeight = checkHeight
+        self.thickness = thickness
+        self.checkThickness = checkThickness
+        self.justification = justification
+        self.checkJustification = checkJustification
+        self.orientation = orientation
+        self.checkOrientation = checkOrientation
+        self.visible = visible
+        self.italic = italic
+        self.mirrored = mirrored
+
 class Model:
     def __init__(self, board, logger):
         self.logger = logger
@@ -29,6 +53,9 @@ class Model:
                     if drawing.GetClass() == 'MTEXT':
                         self.top_fabs.append(drawing)
 
+    def check_attribute(self, status):
+        pass
+    
     def set_reference(self, attribute):
         if attribute == 'F.Silk_Reference':
             self.set_reference_top()
@@ -46,19 +73,29 @@ class Model:
             self.set_fabrication_top()
         elif attribute == 'B.Fab_Reference':
             self.set_fabrication_bot()
-            
+
     def set_reference_top(self):
-        pass
+        pcbnew.Refresh()
+
     def set_reference_bot(self):
-        pass
+        pcbnew.Refresh()
+
     def set_value_top(self):
-        pass
+        pcbnew.Refresh()
+
     def set_value_bot(self):
-        pass
+        pcbnew.Refresh()
+
     def set_fabrication_top(self):
-        pass
+        for text in self.top_fabs:
+            text.SetItalic(True)
+        pcbnew.Refresh()
+
     def set_fabrication_bot(self):
-        pass
+        for text in self.top_fabs:
+            text.SetItalic(True)
+        pcbnew.Refresh()
+
     def get_footprint_drawingss(self):
         drawings = []
         footprints = self.board.GetFootprints()

@@ -43,12 +43,69 @@ class FootprintTextView(FootprintTextDialog):
         self.choiceOrientation.Append(items)
         self.choiceOrientation.SetSelection(4)
 
-
     def SetUnit(self):
         unit = get_current_unit()
         self.textUnitWith.LabelText = unit
         self.textUnitHeight.LabelText = unit
         self.textUnitThickness.LabelText = unit
+    
+    
+    def GetAttributesValue(self):
+        index = self.choiceAttributes.GetSelection()
+        value = self.choiceAttributes.GetString(index)
+        return value
+    
+    def GetJustificationValue(self):
+        index = self.choiceJustification.GetSelection()
+        value = self.choiceJustification.GetString(index)
+        return value
+    
+    def GetLayerValue(self):
+        index = self.choiceLayer.GetSelection()
+        value = self.choiceLayer.GetString(index)
+        return value
+    
+    def GetOrientationValue(self):
+        index = self.choiceOrientation.GetSelection()
+        value = self.choiceOrientation.GetString(index)
+        return value
+    
+    def GetWidthValue(self):
+        return self.editWidth.GetValue()
+
+    def GetHeightValue(self):
+        return self.editHeight.GetValue()
+
+    def GetThicknessValue(self):
+        return self.editThickness.GetValue()
+
+    def GetThicknessChecked(self):
+        return self.checkThickness.GetValue()
+
+    def GetHeightChecked(self):
+        return self.checkHeight.GetValue()
+
+    def GetItalicChecked(self):
+        return self.checkItalic.GetValue()
+
+    def GetJustificationChecked(self):
+        return self.checkJustification.GetValue()
+
+    def GetLayerChecked(self):
+        return self.checkLayer.GetValue()
+
+    def GetMirroredChecked(self):
+        return self.checkMirrored.GetValue()
+
+    def GetVisibleChecked(self):
+        return self.checkVisible.GetValue()
+
+    def GetWidthChecked(self):
+        return self.checkWidth.GetValue()
+
+    def GetOrientationChecked(self):
+        return self.checkOrientation.GetValue()
+    
 
     def HighResWxSize(self, window, size):
         """Workaround if wxWidgets Version does not support FromDIP"""
