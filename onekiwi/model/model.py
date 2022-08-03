@@ -26,7 +26,7 @@ class Status:
         self.mirrored = mirrored
 
 class Model:
-    def __init__(self, board, logger):
+    def __init__(self, board, status, logger):
         self.logger = logger
         self.top_refs = []
         self.top_vals = []
@@ -34,10 +34,11 @@ class Model:
         self.bot_refs = []
         self.bot_vals = []
         self.bot_fabs = []
+        self.status:Status = status
         self.unit = get_current_unit()
         self.footprints = board.GetFootprints()
         self.get_footprint_drawings()
-    
+
     def get_footprint_drawings(self):
         for footprint in self.footprints:
             if footprint.IsFlipped() == True:
@@ -53,48 +54,74 @@ class Model:
                     if drawing.GetClass() == 'MTEXT':
                         self.top_fabs.append(drawing)
 
-    def check_attribute(self, status):
-        pass
-    
-    def set_reference(self, attribute):
-        if attribute == 'F.Silk_Reference':
+    def update_status(self, status):
+        self.status = status
+
+    def check_attribute(self):
+        if self.status.attribute == 'F.Silk_Reference':
             self.set_reference_top()
-        elif attribute == 'B.Silk_Reference':
+        if self.status.attribute == 'B.Silk_Reference':
             self.set_reference_bot()
-
-    def set_value(self, attribute):
-        if attribute == 'F.Footprint_Value':
+        if self.status.attribute == 'F.Footprint_Value':
             self.set_value_top()
-        elif attribute == 'B.Footprint_Value':
+        if self.status.attribute == 'B.Footprint_Value':
             self.set_value_bot()
-
-    def set_fabrication(self, attribute):
-        if attribute == 'F.Fab_Reference':
+        if self.status.attribute == 'F.Fab_Reference':
             self.set_fabrication_top()
-        elif attribute == 'B.Fab_Reference':
+        if self.status.attribute == 'B.Fab_Reference':
             self.set_fabrication_bot()
 
     def set_reference_top(self):
+        self.logger.info('len: %d' %len(self.top_refs))
+        for text in self.top_refs:
+            self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_reference_bot(self):
+        self.logger.info('len: %d' %len(self.bot_refs))
+        for text in self.bot_refs:
+            self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_value_top(self):
+        self.logger.info('len: %d' %len(self.top_vals))
+        for text in self.top_vals:
+            self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_value_bot(self):
+        self.logger.info('len: %d' %len(self.bot_vals))
+        for text in self.bot_vals:
+            self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_fabrication_top(self):
+        self.logger.info('len: %d' %len(self.bot_fabs))
         for text in self.top_fabs:
-            text.SetItalic(True)
+            self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_fabrication_bot(self):
-        for text in self.top_fabs:
-            text.SetItalic(True)
+        self.logger.info('len: %d' %len(self.bot_fabs))
+        for text in self.bot_fabs:
+            self.update_text_value(text)
         pcbnew.Refresh()
+
+    def update_text_value(self, text):
+        if self.status.italic == True:
+            text.SetItalic(True)
+        else:
+            text.SetItalic(False)
+
+        if self.status.mirrored == True:
+            text.SetMirrored(True)
+        else:
+            text.SetMirrored(False)
+        
+        if self.status.visible == True:
+            text.SetVisible(True)
+        else:
+            text.SetVisible(False)
 
     def get_footprint_drawingss(self):
         drawings = []

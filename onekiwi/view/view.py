@@ -10,10 +10,10 @@ class FootprintTextView(FootprintTextDialog):
         self.AddItemLayer()
         self.AddItemOrientation()
         self.window = wx.GetTopLevelParent(self)
+        self.SetVisible(True)
         self.SetUnit()
         #self.textLog.SetMinSize(self.HighResWxSize(self.window, wx.Size(-1, 150)))
         
-
     def AddItemAttributes(self):
         items = [
             'F.Silk_Reference', 'B.Silk_Reference', 
@@ -106,6 +106,11 @@ class FootprintTextView(FootprintTextDialog):
     def GetOrientationChecked(self):
         return self.checkOrientation.GetValue()
     
+    def SetMirror(self, value):
+        return self.checkMirrored.SetValue(value)
+
+    def SetVisible(self, value):
+        return self.checkVisible.SetValue(value)
 
     def HighResWxSize(self, window, size):
         """Workaround if wxWidgets Version does not support FromDIP"""

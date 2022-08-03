@@ -12,7 +12,8 @@ class Controller:
         self.view = FootprintTextView()
         self.logger = self.init_logger(None)
         self.logger = self.init_logger(self.view.textLog)
-        self.model = Model(pcbnew.GetBoard(), self.logger)
+        status = self.get_current_status()
+        self.model = Model(pcbnew.GetBoard(), status, self.logger)
 
         # Connect Events
         self.view.buttonUpdate.Bind(wx.EVT_BUTTON, self.OnButtonPressed)
@@ -28,11 +29,18 @@ class Controller:
         self.view.Destroy()
 
     def OnButtonPressed(self, event):
-        self.model.get_footprint_drawings()
+        self.logger.info('Update')
+        status = self.get_current_status()
+        self.model.update_status(status)
+        self.model.check_attribute()
 
     def OnChoiceAttributes(self, event):
         index = event.GetEventObject().GetSelection()
         value = event.GetEventObject().GetString(index)
+        if value in ['B.Silk_Reference', 'B.Fab_Reference', 'B.Footprint_Value']:
+            self.view.SetMirror(True)
+        else:
+            self.view.SetMirror(False)
         self.logger.info('Selected: %s' %value)
 
     def OnChoiceJustification(self, event):
