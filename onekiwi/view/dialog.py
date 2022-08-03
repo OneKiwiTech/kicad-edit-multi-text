@@ -50,7 +50,7 @@ class FootprintTextDialog ( wx.Dialog ):
 		self.choiceJustification.SetSelection( 0 )
 		fgSizer.Add( self.choiceJustification, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
-		self.checkLayer = wx.CheckBox( self, wx.ID_ANY, u"Layer:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.checkLayer = wx.CheckBox( self, wx.ID_ANY, u"toLayer:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer.Add( self.checkLayer, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
 		choiceLayerChoices = []
@@ -100,8 +100,8 @@ class FootprintTextDialog ( wx.Dialog ):
 		self.checkItalic = wx.CheckBox( self, wx.ID_ANY, u"Italic", wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer.Add( self.checkItalic, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
 
-
-		fgSizer.Add( ( 0, 0), 0, 0, 5 )
+		self.buttonClear = wx.Button( self, wx.ID_ANY, u"Clear Log", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer.Add( self.buttonClear, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.checkThickness = wx.CheckBox( self, wx.ID_ANY, u"Thickness:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer.Add( self.checkThickness, 0, wx.ALIGN_CENTER_VERTICAL, 5 )

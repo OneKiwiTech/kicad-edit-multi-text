@@ -73,43 +73,43 @@ class Model:
             self.set_fabrication_bot()
 
     def set_reference_top(self):
-        self.logger.info('len: %d' %len(self.top_refs))
+        self.logger.info('references: %d' %len(self.top_refs))
         for text in self.top_refs:
             self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_reference_bot(self):
-        self.logger.info('len: %d' %len(self.bot_refs))
+        self.logger.info('references: %d' %len(self.bot_refs))
         for text in self.bot_refs:
             self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_value_top(self):
-        self.logger.info('len: %d' %len(self.top_vals))
+        self.logger.info('references: %d' %len(self.top_vals))
         for text in self.top_vals:
             self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_value_bot(self):
-        self.logger.info('len: %d' %len(self.bot_vals))
+        self.logger.info('references: %d' %len(self.bot_vals))
         for text in self.bot_vals:
             self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_fabrication_top(self):
-        self.logger.info('len: %d' %len(self.bot_fabs))
+        self.logger.info('references: %d' %len(self.bot_fabs))
         for text in self.top_fabs:
             self.update_text_value(text)
         pcbnew.Refresh()
 
     def set_fabrication_bot(self):
-        self.logger.info('len: %d' %len(self.bot_fabs))
+        self.logger.info('references: %d' %len(self.bot_fabs))
         for text in self.bot_fabs:
             self.update_text_value(text)
         pcbnew.Refresh()
 
     def update_text_value(self, text):
-        self.logger.info('xxx: %s' %self.status.thickness)
+        self.logger.info('value: %s' %text.GetShownText())
         
         if self.status.italic == True:
             text.SetItalic(True)
@@ -130,7 +130,7 @@ class Model:
             text.SetHorizJustify(self.status.justification)
         
         if self.status.checkOrientation == True:
-            text.SetTextAngle(math.pi/2)
+            text.SetTextAngle(self.status.orientation)
         
         if self.status.checkWidth == True:
             widthf = float(self.status.width)
@@ -161,48 +161,35 @@ class Model:
             if self.unit == 'in':
                 thickness = int(25400000*thicknessf)
             text.SetTextThickness(thickness)
-
-    def get_footprint_drawingss(self):
-        drawings = []
-        footprints = self.board.GetFootprints()
-        """
-        for d in self.board.GetDrawings():
-            if d.GetClass() == 'PTEXT' and d.GetLayer() == pcbnew.F_SilkS:
-                self.logger.info('class: %s' %d.GetClass())
-                self.logger.info('text: %s' %d.GetText())
-        """
-    
-        check = 3
-        for f in footprints:
-            if check == 1:
-                for d in f.GraphicalItems():
-                    if d.GetClass() == 'MTEXT' and d.GetLayer() == pcbnew.F_Fab:
-                        self.logger.info('===================')
-                        self.logger.info('class: %s' %d.GetClass())
-                        self.logger.info('Text: %s' %d.GetText())
-                        self.logger.info('ShownText: %s' %d.GetShownText())
-                        self.logger.info('TextWidth: %s' %d.GetTextWidth())
-                        self.logger.info('TextHeight: %s' %d.GetTextHeight())
-                        self.logger.info('TextThickness: %s' %d.GetTextThickness())
-                        d.SetItalic(True)
-                        d.SetLayer(pcbnew.F_Fab)
-            elif check == 2:
-                if f.Reference().GetLayer() == pcbnew.F_SilkS:
-                    self.logger.info('class: %s' %f.Reference().GetClass())
-                    self.logger.info('Text: %s' %f.Reference().GetText())
-                    self.logger.info('ShownText: %s' %f.Reference().GetShownText())
-                    self.logger.info('TextWidth: %s' %f.Reference().GetTextWidth())
-                    self.logger.info('TextHeight: %s' %f.Reference().GetTextHeight())
-                    self.logger.info('TextThickness: %s' %f.Reference().GetTextThickness())
-                    f.Reference().SetVisible(True)
-            else:
-                if f.Value().GetLayer() == pcbnew.User_1:
-                    self.logger.info('class: %s' %f.Value().GetClass())
-                    self.logger.info('Text: %s' %f.Value().GetText())
-                    self.logger.info('ShownText: %s' %f.Value().GetShownText())
-                    self.logger.info('TextWidth: %s' %f.Value().GetTextWidth())
-                    self.logger.info('TextHeight: %s' %f.Value().GetTextHeight())
-                    self.logger.info('TextThickness: %s' %f.Value().GetTextThickness())
-                    f.Value().SetVisible(True)
-        pcbnew.Refresh()
-        return drawings
+        
+        if self.status.checkLayer == True:
+            if self.status.layer == 'F.Silkscreen':
+                text.SetLayer(pcbnew.F_SilkS)
+            elif self.status.layer == 'B.Silkscreen':
+                text.SetLayer(pcbnew.B_SilkS)
+            elif self.status.layer == 'F.Fab':
+                text.SetLayer(pcbnew.F_Fab)
+            elif self.status.layer == 'B.Fab':
+                text.SetLayer(pcbnew.B_Fab)
+            elif self.status.layer == 'F.Cu':
+                text.SetLayer(pcbnew.F_Cu)
+            elif self.status.layer == 'B.Cu':
+                text.SetLayer(pcbnew.B_Cu)
+            elif self.status.layer == 'User.1':
+                text.SetLayer(pcbnew.User_1)
+            elif self.status.layer == 'User.2':
+                text.SetLayer(pcbnew.User_2)
+            elif self.status.layer == 'User.3':
+                text.SetLayer(pcbnew.User_3)
+            elif self.status.layer == 'User.4':
+                text.SetLayer(pcbnew.User_4)
+            elif self.status.layer == 'User.5':
+                text.SetLayer(pcbnew.User_5)
+            elif self.status.layer == 'User.6':
+                text.SetLayer(pcbnew.User_6)
+            elif self.status.layer == 'User.7':
+                text.SetLayer(pcbnew.User_7)
+            elif self.status.layer == 'User.8':
+                text.SetLayer(pcbnew.User_8)
+            elif self.status.layer == 'User.9':
+                text.SetLayer(pcbnew.User_9)

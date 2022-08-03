@@ -1,3 +1,4 @@
+from asyncio.log import logger
 from ..model.model import Model, Status
 from ..view.view import FootprintTextView
 from .logtext import LogText
@@ -16,7 +17,8 @@ class Controller:
         self.model = Model(pcbnew.GetBoard(), status, self.logger)
 
         # Connect Events
-        self.view.buttonUpdate.Bind(wx.EVT_BUTTON, self.OnButtonPressed)
+        self.view.buttonUpdate.Bind(wx.EVT_BUTTON, self.OnButtonUpdate)
+        self.view.buttonClear.Bind(wx.EVT_BUTTON, self.OnButtonClear)
         self.view.choiceAttributes.Bind( wx.EVT_CHOICE, self.OnChoiceAttributes)
         self.view.choiceJustification.Bind( wx.EVT_CHOICE, self.OnChoiceJustification)
         self.view.choiceLayer.Bind( wx.EVT_CHOICE, self.OnChoiceLayer)
@@ -28,11 +30,14 @@ class Controller:
     def Close(self):
         self.view.Destroy()
 
-    def OnButtonPressed(self, event):
+    def OnButtonUpdate(self, event):
         self.logger.info('Update')
         status = self.get_current_status()
         self.model.update_status(status)
         self.model.check_attribute()
+    
+    def OnButtonClear(self, event):
+        self.view.textLog.SetValue('')
 
     def OnChoiceAttributes(self, event):
         index = event.GetEventObject().GetSelection()

@@ -31,15 +31,16 @@ class FootprintTextView(FootprintTextDialog):
         items = [
             'F.Silkscreen', 'B.Silkscreen',
             'F.Fab', 'B.Fab', 'F.Cu', 'B.Cu',
-            'User.Comments', 'User.1', 'User.2',
-            'User.3', 'User.4', 'User.5', 'User.6',
+            'User.1', 'User.2','User.3',
+            'User.4', 'User.5', 'User.6',
             'User.7', 'User.8', 'User.9']
         self.choiceLayer.Append(items)
         self.choiceLayer.SetSelection(0)
     
     def AddItemOrientation(self):
         items = [
-            '0.0', '45.0', '90.0', '135.0', '180.0']
+            '0.0', '45.0', '90.0', '135.0', '180.0',
+            '-45.0', '-90.0', '-135.0', '-180.0']
         self.choiceOrientation.Append(items)
         self.choiceOrientation.SetSelection(4)
 
@@ -75,7 +76,8 @@ class FootprintTextView(FootprintTextDialog):
     def GetOrientationValue(self):
         index = self.choiceOrientation.GetSelection()
         value = self.choiceOrientation.GetString(index)
-        return value
+        angle = 10*float(value)
+        return angle
     
     def GetWidthValue(self):
         return self.editWidth.GetValue()
