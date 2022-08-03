@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 version=$(git describe --tags --dirty)
-name=$(echo edit-footprint-value-$version.zip)
+name=$(echo edit-multi-text-$version.zip)
 
 echo "Building release $version"
 cp metadata.json.template metadata.json

@@ -6,7 +6,7 @@ from ..version import version
 class FootprintTextView(FootprintTextDialog):
     def __init__(self):
         FootprintTextDialog.__init__(self, None)
-        self.SetTitle('Edit Footprint Text v%s' % version)
+        self.SetTitle('Edit Multi Text v%s' % version)
         self.AddItemAttributes()
         self.AddItemJustification()
         self.AddItemLayer()

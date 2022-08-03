@@ -1,4 +1,4 @@
-# Edit Footprint Text
+# Edit Multi Text
 ![screenshot](icon/icon_256x256.png)  
 Edit reference value on layer Silkscreen and Fabrication
 
