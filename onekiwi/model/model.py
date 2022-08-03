@@ -1,4 +1,5 @@
 import pcbnew
+import math
 from ..kicad.board import get_current_unit
 
 class Status:
@@ -108,6 +109,8 @@ class Model:
         pcbnew.Refresh()
 
     def update_text_value(self, text):
+        self.logger.info('xxx: %s' %self.status.thickness)
+        
         if self.status.italic == True:
             text.SetItalic(True)
         else:
@@ -122,6 +125,42 @@ class Model:
             text.SetVisible(True)
         else:
             text.SetVisible(False)
+
+        if self.status.checkJustification == True:
+            text.SetHorizJustify(self.status.justification)
+        
+        if self.status.checkOrientation == True:
+            text.SetTextAngle(math.pi/2)
+        
+        if self.status.checkWidth == True:
+            widthf = float(self.status.width)
+            if self.unit == 'mm':
+                width = int(1000000*widthf)
+            if self.unit == 'mil':
+                width = int(25400*widthf)
+            if self.unit == 'in':
+                width = int(25400000*widthf)
+            text.SetTextWidth(width)
+
+        if self.status.checkHeight == True:
+            heightf = float(self.status.height)
+            if self.unit == 'mm':
+                height = int(1000000*heightf)
+            if self.unit == 'mil':
+                height = int(25400*heightf)
+            if self.unit == 'in':
+                height = int(25400000*heightf)
+            text.SetTextThickness(height)
+
+        if self.status.checkThickness == True:
+            thicknessf = float(self.status.thickness)
+            if self.unit == 'mm':
+                thickness = int(1000000*thicknessf)
+            if self.unit == 'mil':
+                thickness = int(25400*thicknessf)
+            if self.unit == 'in':
+                thickness = int(25400000*thicknessf)
+            text.SetTextThickness(thickness)
 
     def get_footprint_drawingss(self):
         drawings = []

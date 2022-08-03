@@ -58,7 +58,14 @@ class FootprintTextView(FootprintTextDialog):
     def GetJustificationValue(self):
         index = self.choiceJustification.GetSelection()
         value = self.choiceJustification.GetString(index)
-        return value
+        justify = 0
+        if value == 'Left':
+            justify = -1
+        elif value == 'Right':
+            justify = 1
+        else:
+            justify = 0
+        return justify
     
     def GetLayerValue(self):
         index = self.choiceLayer.GetSelection()
